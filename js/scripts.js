@@ -1,5 +1,12 @@
 $(document).ready(function() {
   
+  /*$(".fb-comments").hide();
+  
+  $("#commentToggle").click(function(){
+    $(".fb-comments").slideToggle();
+    return false;
+  });*/
+  
   // http://www.dailycoding.com/Posts/default_text_fields_using_simple_jquery_trick.aspx
   $(".defaultText").live('focus', function(srcc){
     if ($(this).val() == $(this)[0].title)
@@ -18,61 +25,100 @@ $(document).ready(function() {
   $(".defaultText").blur();
   
   
-  // submit form
-  $("#returnHTML").submit(function(){	
-    return false;
-  });
+  tweetCounter();
   
-  $("input[type=checkbox]").click(function(){
-    var boxesChecked = $('form input.tweet:checked').size();
-    var tweet = '';
-    if(boxesChecked == 1) {
-      tweet = ' tweet';
-    } else {
-      tweet = ' tweets';
-    }
-    $("#counter").html(boxesChecked + tweet + " in Tweet Digest");
-  });
+  $('#preview').hide();
+  $('#jsLib').hide();
+  $('#hTag').hide();
+  $('#copyTags').hide();
+  $('#copyJs').hide();
   
-  $("#preview").hide();
   
-  $("#generateHtml").click(function(){	
-    
-    $("#preview").hide();
-    $("#loader").html('<img src="img/progressBar.gif" alt="Formatting tweets ...">');  
-		$("#embeddedTweets").html('');  
-		$("#previewHeader").html("");  
-		$("#codeWrapper").html("");  
-		
+  $("#includeJs").click(function(){
     var includeJs = $('#includeJs').is(':checked');
-		if(includeJs){
-			var includeJsVal = 1; 
-		} else {
-			var includeJsVal = 0;
-		}
-    // http://stackoverflow.com/questions/1557273/jquery-post-array-of-multiple-checkbox-values-to-php
-    var tweets = $('.tweet:checked').map(function(i,n) {
-        return $(n).val();
-    }).get(); //get converts it to an array
-    
-    $.post("preview.php",      
-  		{ 'selectedTweets[]': tweets, js: includeJsVal },
-  		function(data){
-  		  $("#previewHeader").html("<h2>Preview and code: </h2>");  
-  			$("#embeddedTweets").html(data);  
-  			$("#codeWrapper").html(encode(data));
-  			$("#loader").html('');
-  			$("#preview").slideDown();
-        
-          $("#copy-button").zclip({
+    if(includeJs){
+      $('#jsLib').slideDown();
+      $("#copyJs").show();
+      
+      $("#copyJs").zclip({
+        path: "js/ZeroClipboard.swf",
+        copy: function(){
+          return $("textarea#jsLib").val();
+        }
+      });
+      
+    } else {
+      $('#jsLib').slideUp();
+      $("#copyJs").hide();
+    }
+  });
+  
+  $("#hashTags").click(function(){
+    var hashTags = $('#hashTags').is(':checked');
+    if(hashTags){
+      
+      var strVar = $("#codeWrapper").text();
+      
+      $.post("hashtags.php",      
+    		{ str: strVar },
+    		function(data){
+    		  $("#hTag").html(data);
+    		  $("#hTag").slideDown();
+    		  $("#copyTags").show();
+    		  
+    		  $("#copyTags").zclip({
             path: "js/ZeroClipboard.swf",
             copy: function(){
-              return $("#codeWrapper").text();
+              return $("#hTag").val();
             }
           });
-          
-  		}
-  	);
+    		}
+    	);
+    	
+    } else {
+      $('#hTag').slideUp();
+      $("#copyTags").hide();
+    }
+  });
+  
+  
+  
+  
+  $("input[type=checkbox]").click(function(){
+    // reset previous stuff
+    $('#preview').hide();
+    $("#embeddedTweets").html('');
+    $("#codeWrapper").html('');
+
+    $('.tweet').each(function(index) {
+      if( $(this).is(':checked') ) {
+        var tweetHtml = $(this).next().next(".tweetToCopy").html();
+        // append html
+        $("#embeddedTweets").append(tweetHtml);    
+        // append code
+        $("#codeWrapper").append(encode(tweetHtml));
+      }
+    });
+    
+    // header
+    $("#previewHeader").html("<h2>Preview and code: </h2>");  
+	  
+    // show number of tweets in digest
+    tweetCounter();
+    
+    var boxesChecked = $('form input.tweet:checked').size();
+    if(boxesChecked) {
+      $('#preview').show();
+    }
+  
+    // copy to clipboard
+    $("#copyHtml").zclip({
+      path: "js/ZeroClipboard.swf",
+      copy: function(){
+        return $("#codeWrapper").text();
+      }
+    });
+    
   });
 
 });
@@ -91,4 +137,13 @@ function encode(input){
 
 function decode(input){
   return $('<div/>').html(input).text();
+}
+
+function tweetCounter() {
+  var boxesChecked = $('form input.tweet:checked').size();
+  var tweetTxt = ' tweets';
+  if(boxesChecked == 1) {
+    tweetTxt = ' tweet';
+  }
+  $("#counter").html(boxesChecked + tweetTxt + " in Tweet Digest&nbsp;|&nbsp;<a id='goback' href='index.php'>Change @user &amp; # of tweets</a>");
 }

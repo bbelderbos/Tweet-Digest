@@ -1,11 +1,48 @@
+<?php
+$baseUrl = 'http://tweetdigest.net';
+$title = "Twitter Digest | Keep the tweets you care about ...";
+$metaDesc = "Twitter Digest lets you easily import your latest tweets to publish them on your site or blog.";
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Twitter Digest</title>
+    <meta name="description" content="<?php echo $metaDesc; ?>">
+    <meta name="author" content="Bob Belderbos - http://bobbelderbos.com">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="<?php echo $baseUrl; ?>/img/logo.jpg" />
+    <meta property="og:url" content="<?php echo $baseUrl; ?>" />
+    <meta property="og:title" content="<?php echo $title; ?>" />
+    <meta property="og:description" content="<?php echo $metaDesc; ?>" />
+    <meta property="fb:admins" content="628517118" />
+    
+    <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="img/ico.png" />
+    <link rel="shortcut icon" href="img/ico_png.png" />
   </head>
   <body>
-  <h1><a href="index.php" title="go home"><img src="img/banner.png" alt="tweet digest"></a></h1>
+    <?php if(!$_GET): ?>  
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=295206020548504";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    <?php endif; ?>
+    
+    <h1><a href="index.php" title="go home"><img src="img/banner.png" alt="tweet digest"></a></h1>
+
+
+    <div id="shareHome" style="position: absolute; top: 15px; right: 30px;">
+      <a href="http://twitter.com/home?status=<?php echo urlencode("$baseUrl - $title - via @bbelderbos"); ?>" 
+        target="_blank"><img src="img/twitter-icon.png"></a>
+      <a href="http://facebook.com/sharer.php?u=<?php echo $baseUrl; ?>&t=<?php echo urlencode($title); ?>" 
+        target="_blank"><img src="img/facebook-icon.png"></a>
+        <a href="javascript:(function(){var w=480;var h=480;var x=Number((window.screen.width-w)/2);var y=Number((window.screen.height-h)/2);window.open('https://plusone.google.com/_/+1/confirm?hl=en&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'','width='+w+',height='+h+',left='+x+',top='+y+',scrollbars=no');})();"><img src="img/plus-icon.png" alt="Share on Google+" /></a>
+    </div>
+    

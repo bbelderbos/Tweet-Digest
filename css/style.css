@@ -2,7 +2,7 @@ body {
   font : 75%/1.5 "Lucida Grande", Helvetica, "Lucida Sans Unicode", Arial, Verdana, sans-serif;
 }
 h2 {
-  padding: 5px 10px;
+  padding: 5px;
 }
 h1 {
   width: 960px;
@@ -11,21 +11,32 @@ h1 {
 h2 {
   font-size: 1.5em;
 }
+h2#fbHeader {
+  color: #666; 
+  padding: 0px 5px;
+}
 a {
-  color: #1da3e1; font-weight: bold; text-decoration: none;
+  color: #1da3e1; text-decoration: none;
 }
 a:hover {
-  color: #032b2d;
+  color: #032b2d; border-bottom: 1px dashed #eee;
 }
 form {
-  padding: 5px;
+  padding: 10px 5px;
 }
 input, textarea {
-  border: 1px solid #eee;
+  border: 1px solid #dee7ea;
   padding: 0 5px;
-  width: 380px; height: 30px;
+  width: 370px; height: 30px;
 }
-input.tweet, #selectAll, #includeJs {
+#jsLib {
+  height: 50px;
+}
+#hTag {
+  height: 100px;
+}
+
+input.tweet, #selectAll, .ckBoxStyle {
   padding: 0px;
   width: 15px;
   height: 15px;
@@ -40,26 +51,23 @@ input.tweet, #selectAll, #includeJs {
   color: #000;
   background-color: #ccc;
 }
-textarea {
-  width: 948px;
-  height: 300px;
-}
 
 #twitter, #preview {
   margin: 10px auto;
   width: 950px;
 }
 
-#twitter {
+#twitter, #feedback {
+  overflow: hidden;
   border: 1px solid #eee;
-	background: #d0eefd; /* Old browsers */
-	background: -moz-linear-gradient(top,  #d0eefd 0%, #ffffff 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d0eefd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #d0eefd 0%,#ffffff 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* IE10+ */
-	background: linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0eefd', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+	background: #dee7ea; /* Old browsers */
+	background: -moz-linear-gradient(top,  #dee7ea 0%, #ffffff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dee7ea), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #dee7ea 0%,#ffffff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* IE10+ */
+	background: linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dee7ea', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 #preview {
   padding: 10px 5px;
@@ -74,37 +82,49 @@ textarea {
   clear: both;
   margin: 4px;
 }
-#twitter li, #twitter, input, textarea {
+#twitter li, #twitter, #feedback, input, textarea {
   border-radius: 5px;	-webkit-border-radius: 5px;	-moz-border-radius: 5px; 
 }
 #twitter #tweets li {
-	border: 1px solid #d0eefd;
+  width: 900px;
+  float: left;
+	border: 1px solid #dee7ea;
   background-color: #fff;
 }
-
+.tweet {
+  position: relative; top: 5px;  
+}
 #twitter li img {
+  float: left;
   width: 20px;
   position: relative; top: 10px;
   margin: 0px 5px;
 }
-#twitter li p {
-  width: 940px; 
-}
-#twitter li .created {
-  font-size: 85%;
-  margin-left: 55px;
+.tweetToCopy {
+  height: 44px;
+  position: relative; top: 6px;
+  width: 840px; float: right; 
 }
 
-#embeddedTweets { width: 540px; padding: 0 5px; float: left; }
-#codeWrapper { width: 390px; float: right; font-size: 85%; }
-#copy-button { margin: 5px 0 0 15px; }
+#embeddedTweets { width: 530px; padding: 0 5px; float: left;  border-right: #eee; }
+#codeWrapperDiv { width: 390px; float: right; font-size: 85%;  }
+#codeWrapper {
+  width: 380px; height: 200px; 
+  overflow-y: scroll; overflow-x: hidden;
+}
+
 #loader {margin: 10px; }
-#goback {float: right; margin: 10px; }
 #counter {float: right; margin: 3px 20px 0 0; }
 
 .defaultText {/*font-family: Georgia;*/ color: #999;}
 .defaultTextActive { color: #a1a1a1; font-style: italic; }
+#feedback {width: 940px; padding: 5px; margin: 20px auto;}
+#fbcomments {float: left; margin-top: 20px;  }
+#twcomment {float: right; margin: 0 5px; }
 
 #footer {clear: both; width: 940px; 
-  margin: 40px auto 0 auto; padding: 5px;
+  margin: 50px auto 0 auto; padding: 10px 5px;
   border-top: 1px dashed #f1f1f1;  }
+    
+#shareHome {position: absolute; top: 0px; right: 100px; 
+  clear: both;  width: 150px;margin: 0 auto;}

@@ -1,7 +1,40 @@
-  <p id="footer"><a href='index.php' target='go home'>Tweet Digest</a> &copy; 2012 <a href='http://bobbelderbos.com' title='site of developer' target='_blank'>Bob Belderbos</a> - <a href='https://www.facebook.com/bobbelderbos'>Follow on Facebook</a></p>			
-  			
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  </div><!-- end twitter -->
+  
+    <?php if(!$_GET): ?>  
+	    <div id="feedback">
+	      <h2 id="fbHeader">Comments and feedback</h2>
+	      <div id="fbcomments">
+          <div class="fb-comments" data-href="http://tweetdigest.net" data-num-posts="5" data-width="540"></div>
+        </div>
+        <div id="twcomment"></div>
+      </div>
+    <?php endif; ?>
+  	
+    <div id="footer"><a href='http://tweetdigest.net' target='go home'>Tweet Digest</a> &copy; 2012 <a href='http://bobbelderbos.com' title='site of developer' target='_blank'>Bob Belderbos</a> - Follow me on <a href='https://www.twitter.com/bbelderbos'>Twitter</a> or <a href='https://www.facebook.com/bobbelderbos'>Facebook</a>
+      <?php if($_GET): ?>
+       - <a href="index.php">Feedback</a>
+    	<?php endif; ?>
+    </div>
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript" src="js/jquery.zclip.min.js"></script>
+  
+  <?php if(!$_GET): ?>
+    <script type="text/javascript" src="http://platform.twitter.com/anywhere.js?id=zDhLjtTN58VUuEaQH41VsA&v=1"></script>
+    <script type="text/javascript">
+          twttr.anywhere(function (T) {
+            T("#twcomment").tweetBox({
+              height: 35,
+              width: 390,
+              defaultContent: '<?php echo "@bbelderbos #tweetdigest"; ?>',
+              label: '' 
+            });
+          });
+    </script>
+    
+  <?php endif; ?>
+  
   <script type="text/javascript" src="js/scripts.js"></script>
   
   </body>
