@@ -1,0 +1,110 @@
+body {
+  font : 75%/1.5 "Lucida Grande", Helvetica, "Lucida Sans Unicode", Arial, Verdana, sans-serif;
+}
+h2 {
+  padding: 5px 10px;
+}
+h1 {
+  width: 960px;
+  margin: 0 auto;
+}
+h2 {
+  font-size: 1.5em;
+}
+a {
+  color: #1da3e1; font-weight: bold; text-decoration: none;
+}
+a:hover {
+  color: #032b2d;
+}
+form {
+  padding: 5px;
+}
+input, textarea {
+  border: 1px solid #eee;
+  padding: 0 5px;
+  width: 380px; height: 30px;
+}
+input.tweet, #selectAll, #includeJs {
+  padding: 0px;
+  width: 15px;
+  height: 15px;
+}
+.submit {
+  background-color: #666;
+  color: #fff;
+  width: 140px;
+  border: none;
+}
+.submit:hover {
+  color: #000;
+  background-color: #ccc;
+}
+textarea {
+  width: 948px;
+  height: 300px;
+}
+
+#twitter, #preview {
+  margin: 10px auto;
+  width: 950px;
+}
+
+#twitter {
+  border: 1px solid #eee;
+	background: #d0eefd; /* Old browsers */
+	background: -moz-linear-gradient(top,  #d0eefd 0%, #ffffff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d0eefd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #d0eefd 0%,#ffffff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* IE10+ */
+	background: linear-gradient(top, #d0eefd 0%,#ffffff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0eefd', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+#preview {
+  padding: 10px 5px;
+}
+
+#twitter #tweets {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#twitter li {
+  clear: both;
+  margin: 4px;
+}
+#twitter li, #twitter, input, textarea {
+  border-radius: 5px;	-webkit-border-radius: 5px;	-moz-border-radius: 5px; 
+}
+#twitter #tweets li {
+	border: 1px solid #d0eefd;
+  background-color: #fff;
+}
+
+#twitter li img {
+  width: 20px;
+  position: relative; top: 10px;
+  margin: 0px 5px;
+}
+#twitter li p {
+  width: 940px; 
+}
+#twitter li .created {
+  font-size: 85%;
+  margin-left: 55px;
+}
+
+#embeddedTweets { width: 540px; padding: 0 5px; float: left; }
+#codeWrapper { width: 390px; float: right; font-size: 85%; }
+#copy-button { margin: 10px 0 0 10px; }
+#loader {margin: 10px; }
+#goback {float: right; margin: 10px; }
+#counter {float: right; margin: 3px 20px 0 0; }
+
+.defaultText {/*font-family: Georgia;*/ color: #999;}
+.defaultTextActive { color: #a1a1a1; font-style: italic; }
+
+#footer {clear: both; width: 950px; 
+  margin: 40px auto 0 auto; padding: 5px;
+  border-top: 1px solid #f2f2f2;  }
