@@ -18,9 +18,10 @@ echo '<div id="twitter">';
     <li><h2>Choose Tweets for Digest (max. 150)</h2></li>
     <li><input id="selectAll" type="checkbox" onclick="toggleChecked(this.checked)"> Select all <div id="counter">0 tweets in Tweet Digest</div></li>
     <div id="tweets">'. outputTweetsForSelect($tweets) .'</div>
-    <li><p><input id="generateHtml" type="submit" class="submit" value="Generate HTML">
-      <input type="checkbox" id="includeJs" name="includeJs" value="1" /> Include Twitter\'s widgets.js
-      <a id="goback" href="index.php">Change username / # tweets</a>
+    <li><p><input id="generateHtml" type="submit" class="submit" value="Digest Tweets!">
+      <input type="checkbox" id="includeJs" name="includeJs" value="1" /> 
+      <small>Include Javascript (<a href="img/preview_javascript.png" title="see example" target="_blank">nicer look</a> but more KBs than <a href="img/preview_text.png" title="see example" target="_blank">plain text</a>)</small>
+      <a id="goback" href="index.php">Change user/ # tweets</a>
       </p>
     </li>
   </ul>

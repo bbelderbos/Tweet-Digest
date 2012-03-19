@@ -97,7 +97,7 @@ textarea {
 
 #embeddedTweets { width: 540px; padding: 0 5px; float: left; }
 #codeWrapper { width: 390px; float: right; font-size: 85%; }
-#copy-button { margin: 10px 0 0 10px; }
+#copy-button { margin: 5px 0 0 15px; }
 #loader {margin: 10px; }
 #goback {float: right; margin: 10px; }
 #counter {float: right; margin: 3px 20px 0 0; }
@@ -105,6 +105,6 @@ textarea {
 .defaultText {/*font-family: Georgia;*/ color: #999;}
 .defaultTextActive { color: #a1a1a1; font-style: italic; }
 
-#footer {clear: both; width: 950px; 
+#footer {clear: both; width: 940px; 
   margin: 40px auto 0 auto; padding: 5px;
-  border-top: 1px solid #f2f2f2;  }
+  border-top: 1px dashed #f1f1f1;  }
