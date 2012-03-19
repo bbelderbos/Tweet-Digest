@@ -13,7 +13,8 @@ if(empty($hashtags)) {
   echo "No hashtags found in selection";
 } else {
   foreach ($hashtags as $k=>$v) {
-    echo "$k (x$v)  ";
+    // echo "$k (x$v)  ";
+    echo "$k ";
   }  
 }
 ?>
