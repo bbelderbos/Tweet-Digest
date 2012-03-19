@@ -1,39 +1,49 @@
   </div><!-- end twitter -->
   
-    <?php if(!$_GET): ?>  
-	    <div id="feedback">
-	      <h2 id="fbHeader">Comments and feedback</h2>
-	      <div id="fbcomments">
-          <div class="fb-comments" data-href="http://tweetdigest.net" data-num-posts="5" data-width="540"></div>
+    <?php if(!$_GET): ?>
+       <div id="slideshowWrapper">
+         <h2>3 Simple Steps:</h2>
+         <div id="title"></div>
+         <div id="slideshow" class="pics">
+            <img src="img/step1.jpg" alt="Step 1: Choose the tweets for your digest" />
+            <img src="img/step2.jpg" alt="Step 2: Copy the generated html to clipboard" />
+            <img src="img/step3.jpg" alt="Step 2 (II): Other options you can copy over" />
+            <img src="img/step4.jpg" alt="Step 3. Paste the html code in your blog post, here an example of my blog" />
         </div>
-        <div id="twcomment"></div>
       </div>
     <?php endif; ?>
-  	
-    <div id="footer"><a href='http://tweetdigest.net' target='go home'>Tweet Digest</a> &copy; 2012 <a href='http://bobbelderbos.com' title='site of developer' target='_blank'>Bob Belderbos</a> - Follow me on <a href='https://www.twitter.com/bbelderbos'>Twitter</a> or <a href='https://www.facebook.com/bobbelderbos'>Facebook</a>
-      <?php if($_GET): ?>
-       - <a href="index.php">Feedback</a>
-    	<?php endif; ?>
+    
+    <div id="footer">
+      <a href='http://tweetdigest.net' target='go home'>Tweet Digest</a>
+       &copy; 2012 
+       <a href='http://bobbelderbos.com' title='site of developer' target='_blank'>Bob Belderbos</a>
+        - <a id="commentToggle" href="index.php">Feedback</a> 
     </div>
-  
-  
+       
+    <div id="feedback">
+      <h2 id="fbHeader">Comments and feedback</h2>
+      <div id="fbcomments">
+        <div class="fb-comments" data-href="http://tweetdigest.net" data-num-posts="5" data-width="540"></div>
+      </div>
+      <div id="twcomment"></div>
+    </div>
+	    
+
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript" src="js/jquery.zclip.min.js"></script>
-  
-  <?php if(!$_GET): ?>
-    <script type="text/javascript" src="http://platform.twitter.com/anywhere.js?id=zDhLjtTN58VUuEaQH41VsA&v=1"></script>
-    <script type="text/javascript">
-          twttr.anywhere(function (T) {
-            T("#twcomment").tweetBox({
-              height: 35,
-              width: 390,
-              defaultContent: '<?php echo "#tweetdigest"; ?>',
-              label: '' 
-            });
+  <script type="text/javascript" src="js/jquery.cycle.lite.js"></script>
+  <script type="text/javascript" src="http://platform.twitter.com/anywhere.js?id=zDhLjtTN58VUuEaQH41VsA&v=1"></script>
+  <script type="text/javascript">
+        twttr.anywhere(function (T) {
+          T("#twcomment").tweetBox({
+            height: 35,
+            width: 390,
+            defaultContent: '<?php echo "#tweetdigest (via @bbelderbos)"; ?>',
+            label: '' 
           });
-    </script>
-    
-  <?php endif; ?>
+        });
+  </script>
+  
   
   <script type="text/javascript" src="js/scripts.js"></script>
   

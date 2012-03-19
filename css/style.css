@@ -11,6 +11,10 @@ h1 {
 h2 {
   font-size: 1.5em;
 }
+#title {
+  font-size: 1.2em;
+  padding: 10px 5px;
+}
 h2#fbHeader {
   color: #666; 
   padding: 0px 5px;
@@ -25,7 +29,7 @@ form {
   padding: 10px 5px;
 }
 input, textarea {
-  border: 1px solid #dee7ea;
+  border: 1px solid #ddebf1;
   padding: 0 5px;
   width: 370px; height: 30px;
 }
@@ -60,14 +64,14 @@ input.tweet, #selectAll, .ckBoxStyle {
 #twitter, #feedback {
   overflow: hidden;
   border: 1px solid #eee;
-	background: #dee7ea; /* Old browsers */
-	background: -moz-linear-gradient(top,  #dee7ea 0%, #ffffff 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dee7ea), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #dee7ea 0%,#ffffff 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* IE10+ */
-	background: linear-gradient(top, #dee7ea 0%,#ffffff 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dee7ea', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+	background: #ddebf1; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ddebf1 0%, #ffffff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ddebf1), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ddebf1 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ddebf1 0%,#ffffff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ddebf1 0%,#ffffff 100%); /* IE10+ */
+	background: linear-gradient(top, #ddebf1 0%,#ffffff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ddebf1', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 #preview {
   padding: 10px 5px;
@@ -82,13 +86,13 @@ input.tweet, #selectAll, .ckBoxStyle {
   clear: both;
   margin: 4px;
 }
-#twitter li, #twitter, #feedback, input, textarea {
+#twitter li, #twitter, #feedback, input, textarea, #slideshowWrapper {
   border-radius: 5px;	-webkit-border-radius: 5px;	-moz-border-radius: 5px; 
 }
 #twitter #tweets li {
   width: 900px;
   float: left;
-	border: 1px solid #dee7ea;
+	border: 1px solid #ddebf1;
   background-color: #fff;
 }
 .tweet {
@@ -122,9 +126,15 @@ input.tweet, #selectAll, .ckBoxStyle {
 #fbcomments {float: left; margin-top: 20px;  }
 #twcomment {float: right; margin: 0 5px; }
 
+#slideshowWrapper {
+  border: 1px solid #eee;
+  width: 950px; height: 280px; 
+  clear: both; margin: 20px auto;
+}
 #footer {clear: both; width: 940px; 
   margin: 50px auto 0 auto; padding: 10px 5px;
   border-top: 1px dashed #f1f1f1;  }
     
-#shareHome {position: absolute; top: 0px; right: 100px; 
-  clear: both;  width: 150px;margin: 0 auto;}
+#shareHome {position: absolute; top: 10px; right: 110px; 
+  clear: both;  width: 220px; margin: 0 auto; }
+#buttons, .fb-like {float: left; }

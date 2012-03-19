@@ -1,11 +1,17 @@
 $(document).ready(function() {
   
-  /*$(".fb-comments").hide();
+  $('#slideshow').cycle({
+    before: onBefore 
+  })
+  
+  $("#feedback").slideUp();
   
   $("#commentToggle").click(function(){
-    $(".fb-comments").slideToggle();
+    //$("#feedback").show();
+    
+    $("#feedback").slideToggle();
     return false;
-  });*/
+  });
   
   // http://www.dailycoding.com/Posts/default_text_fields_using_simple_jquery_trick.aspx
   $(".defaultText").live('focus', function(srcc){
@@ -123,6 +129,11 @@ $(document).ready(function() {
 
 });
 
+
+function onBefore() { 
+    $('#title') 
+        .html(this.alt); 
+};
 
 function toggleChecked(status) {
   $(".tweet").each( function() {
