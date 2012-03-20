@@ -12,8 +12,13 @@ h2 {
   font-size: 1.5em;
 }
 #title {
-  font-size: 1.2em;
-  padding: 10px 5px;
+  float: right;
+  width: 364px;
+  color: #fff;
+  background-color: #666;
+  font-size: 1em;
+  padding: 3px 8px;
+  margin: 10px 5px;
 }
 h2#fbHeader {
   color: #666; 
@@ -46,11 +51,21 @@ input.tweet, #selectAll, .ckBoxStyle {
   height: 15px;
 }
 .submit {
-  background-color: #666;
   color: #fff;
   width: 140px;
   border: none;
 }
+.submit, #title {
+  background: #000; /* Old browsers */
+	background: -moz-linear-gradient(top,  #000 0%, #666 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000), color-stop(100%,#666)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #000 0%,#666 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #000 0%,#666 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #000 0%,#666 100%); /* IE10+ */
+	background: linear-gradient(top, #000 0%,#666 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000', endColorstr='#666',GradientType=0 ); /* IE6-9 */
+}
+
 .submit:hover {
   color: #000;
   background-color: #ccc;
@@ -86,7 +101,7 @@ input.tweet, #selectAll, .ckBoxStyle {
   clear: both;
   margin: 4px;
 }
-#twitter li, #twitter, #feedback, input, textarea, #slideshowWrapper {
+#twitter li, #twitter, #feedback, input, textarea, #slideshowWrapper, #title {
   border-radius: 5px;	-webkit-border-radius: 5px;	-moz-border-radius: 5px; 
 }
 #twitter #tweets li {
@@ -128,11 +143,15 @@ input.tweet, #selectAll, .ckBoxStyle {
 
 #slideshowWrapper {
   border: 1px solid #eee;
-  width: 950px; height: 280px; 
-  clear: both; margin: 20px auto;
+  width: 950px; height: 285px; 
+  clear: both; margin: 40px auto;
 }
+#slideshow {
+  clear: both;
+}
+
 #footer {clear: both; width: 940px; 
-  margin: 50px auto 0 auto; padding: 10px 5px;
+  margin: 20px auto 0 auto; padding: 10px 5px;
   border-top: 1px dashed #f1f1f1;  }
     
 #shareHome {position: absolute; top: 10px; right: 110px; 
