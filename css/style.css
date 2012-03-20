@@ -14,14 +14,13 @@ h2 {
 #title {
   float: right;
   width: 364px;
-  color: #fff;
-  background-color: #666;
+  background-color: #666666;
   font-size: 1em;
   padding: 3px 8px;
   margin: 10px 5px;
 }
 h2#fbHeader {
-  color: #666; 
+  color: #666666; 
   padding: 0px 5px;
 }
 a {
@@ -55,19 +54,19 @@ input.tweet, #selectAll, .ckBoxStyle {
   width: 140px;
   border: none;
 }
-.submit, #title {
-  background: #000; /* Old browsers */
-	background: -moz-linear-gradient(top,  #000 0%, #666 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000), color-stop(100%,#666)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #000 0%,#666 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #000 0%,#666 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #000 0%,#666 100%); /* IE10+ */
-	background: linear-gradient(top, #000 0%,#666 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000', endColorstr='#666',GradientType=0 ); /* IE6-9 */
+.submit {
+  background: #000000; /* Old browsers */
+	background: -moz-linear-gradient(top,  #000000 0%, #666666 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#666666)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #000000 0%,#666666 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #000000 0%,#666666 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #000000 0%,#666666 100%); /* IE10+ */
+	background: linear-gradient(top, #000000 0%,#666666 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#666666',GradientType=0 ); /* IE6-9 */
 }
 
 .submit:hover {
-  color: #000;
+  color: #000000;
   background-color: #ccc;
 }
 
@@ -76,7 +75,7 @@ input.tweet, #selectAll, .ckBoxStyle {
   width: 950px;
 }
 
-#twitter, #feedback {
+#twitter, #feedback, #title {
   overflow: hidden;
   border: 1px solid #eee;
 	background: #ddebf1; /* Old browsers */
@@ -137,13 +136,13 @@ input.tweet, #selectAll, .ckBoxStyle {
 
 .defaultText {/*font-family: Georgia;*/ color: #999;}
 .defaultTextActive { color: #a1a1a1; font-style: italic; }
-#feedback {width: 940px; padding: 5px; margin: 20px auto;}
+#feedback { clear: both; width: 940px; padding: 5px; margin: 20px auto;}
 #fbcomments {float: left; margin-top: 20px;  }
 #twcomment {float: right; margin: 0 5px; }
 
 #slideshowWrapper {
   border: 1px solid #eee;
-  width: 950px; height: 285px; 
+  width: 950px; height: 260px; 
   clear: both; margin: 40px auto;
 }
 #slideshow {
@@ -154,6 +153,5 @@ input.tweet, #selectAll, .ckBoxStyle {
   margin: 20px auto 0 auto; padding: 10px 5px;
   border-top: 1px dashed #f1f1f1;  }
     
-#shareHome {position: absolute; top: 10px; right: 110px; 
-  clear: both;  width: 220px; margin: 0 auto; }
+#shareHome { width: 220px; float: right; }
 #buttons, .fb-like {float: left; }

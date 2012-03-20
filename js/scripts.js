@@ -1,7 +1,7 @@
 $(document).ready(function() {
   
   $('#slideshow').cycle({
-    delay:  3000, 
+    delay:  4000, 
     speed:  500,
     before: onBefore 
   })
