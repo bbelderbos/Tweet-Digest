@@ -8,7 +8,7 @@ function getTweets($user, $numTweets) {
   $url = "https://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets;
 
   if(!$info = @file_get_contents($url, true)) {
-   die("Not able to get tweets\n");
+   die("Not able to get tweets now (Twitter only allows 150 requests per hour)\n");
   }
   $tweets = json_decode($info);
   return $tweets;
@@ -20,7 +20,7 @@ function getTweets($user, $numTweets) {
     $url = "https://twitter.com/statuses/user_timeline/".$user.".json?count=100&page=" . $i;
 
     if(!$info = @file_get_contents($url, true)) {
-     die("Not able to get tweets\n");
+     die("Not able to get tweets now (Twitter only allows 150 requests per hour)\n");
     }
     $tweetsNew = json_decode($info);   
     $tweets = array_merge($tweets, $tweetsNew); 
@@ -32,6 +32,9 @@ function getTweets($user, $numTweets) {
 function outputTweetsForSelect($tweets) {
   $output = ''; 
   foreach($tweets as $item) {
+    
+    // todo data-in-reply-to
+    
     $output .= '<li>
       
         <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$item->id_str.'" />
@@ -44,6 +47,9 @@ function outputTweetsForSelect($tweets) {
   }
   return $output;
 }
+
+
+
 
 function getTweetHtml($tweetId) {
   $url = "https://api.twitter.com/1/statuses/oembed.json?id=$tweetId&omit_script=true&lang=en";
@@ -97,4 +103,57 @@ function insertStat($user, $numTweets){
 
   $mysqli->close;
 }
+
+
+
+// yql - does this have a rate limit ?!!
+
+function getTweetsViaYql($user, $numTweets) {
+  $query = "select created_at,from_user_id_str,from_user,from_user_name,text,id_str,profile_image_url,text,in_reply_to_status_id_str from twitter.search($numTweets) where q='from:$user'";
+  $url = "http://query.yahooapis.com/v1/public/yql?q=";
+  $url .= rawurlencode($query);
+  $url .= "&format=json&env=store://datatables.org/alltableswithkeys";
+
+  $json = get_data($url);
+  $info = json_decode($json, true) ;
+  return $info;
+}
+
+// from: http://davidwalsh.name/download-urls-content-php-curl
+function get_data($url) {
+  $ch = curl_init();
+  $timeout = 5;
+  curl_setopt($ch,CURLOPT_URL,$url);
+  curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+  curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+  $data = curl_exec($ch);
+  curl_close($ch);
+  return $data;
+}
+
+
+function outputTweetsForSelectYql($tweets) {
+  $output = ''; 
+  foreach($tweets['query']['results']['results'] as $tweet) {
+    
+    // todo data-in-reply-to
+    
+    $output .= '<li>
+      
+        <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$tweet['id_str'].'" />
+        <img src="'.$tweet['profile_image_url'].'">
+        <div class="tweetToCopy">
+          <blockquote class="twitter-tweet"';
+    
+    if(isset($tweet['in_reply_to_status_id_str'])) $output .= 'data-in-reply-to="'.$tweet['in_reply_to_status_id_str'].'"';
+    
+    $output .= '><p>'.makeLinks($tweet['text']).'</p>&mdash; '.$tweet['from_user_name'].' (@'.$tweet['from_user'].') <a href="https://twitter.com/'.$tweet['from_user'].'/status/'.$tweet['id_str'].'" data-datetime="'.convertDate($tweet['created_at']).'">'.convertDateReadable($tweet['created_at']).'</a></blockquote>
+        </div>
+      
+    </li>';
+  }
+  return $output;
+}
+
+
 ?>

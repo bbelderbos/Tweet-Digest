@@ -16,15 +16,24 @@ echo '<div id="twitter">'; // gets closed in footer.html
   insertStat($user, $numTweets);
   
   // get tweets
+  // a. via search.twitter (rate limit !)
   $tweets = getTweets($user, $numTweets);
+  // b. via yal
+  //$tweets = getTweetsViaYql($user, $numTweets);
+  
   //debugArray($tweets);
   
   echo '<form method="POST" id="returnHTML" action="index.php">
   <ul>
     <li><h2>Choose Tweets for Digest</h2></li>
-    <li><input id="selectAll" type="checkbox" onclick="toggleChecked(this.checked)"> Select all <div id="counter">0 tweets in Tweet Digest&nbsp;|&nbsp;<a href="index.php">Change @user &amp; # of tweets</a></div></li>
-    <div id="tweets">'. outputTweetsForSelect($tweets) .'</div>
-  </ul>
+    <li><input id="selectAll" type="checkbox" onclick="toggleChecked(this.checked)"> Select all <div id="counter">0 tweets in Tweet Digest&nbsp;|&nbsp;<a href="index.php">Change @user &amp; # of tweets</a></div></li>';
+  
+  // a. via search.twitter (rate limit !)
+  echo '<div id="tweets">'. outputTweetsForSelect($tweets) .'</div>';
+  // b. via yal
+  //echo '<div id="tweets">'. outputTweetsForSelectYql($tweets) .'</div>';
+  
+  echo '</ul>
   </form>';    
 
 echo '<div id="loader"></div>';
