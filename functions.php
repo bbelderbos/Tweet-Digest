@@ -5,12 +5,26 @@ function getTweets($user, $numTweets) {
   if(!is_numeric($numTweets)) $numTweets = 20;
   if($numTweets > 200) $numTweets = 200;  
   
-  $url = "https://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets;
+  $url = "http://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets;
+  
+  // make request
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url); 
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+  $output = curl_exec($ch); 
 
-  if(!$info = @file_get_contents($url, true)) {
-   die("Not able to get tweets now (Twitter only allows 150 requests per hour)\n");
+  // convert response
+  $tweets = json_decode($output);
+
+  // handle error; error output
+  $info = curl_getinfo($ch);
+  curl_close($ch);  
+  if($info['http_code'] !== 200) {
+    echo "http code returned by Twitter: ".$info['http_code']."<br><br>Dump request: <br>";
+    var_dump($output);
+    die();
   }
-  $tweets = json_decode($info);
+  
   return $tweets;
   
   // when > 200 is ok to support use the following: 

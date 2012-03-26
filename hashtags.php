@@ -12,6 +12,7 @@ foreach ($words as $w) {
 if(empty($hashtags)) {
   echo "No hashtags found in selection";
 } else {
+  ksort($hashtags);
   foreach ($hashtags as $k=>$v) {
     // echo "$k (x$v)  ";
     echo "$k ";
