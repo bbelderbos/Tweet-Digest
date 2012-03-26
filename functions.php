@@ -106,7 +106,7 @@ function convertDateReadable($date) {
 
 
 function insertStat($user, $numTweets){  
-  include 'conn.php';
+  include '../../includes/conn_tweetDigest.php';
   $tstamp = time();
   
   if ($stmt = $mysqli->prepare("INSERT INTO stats (user, numTweets, insertDate) VALUES (?, ?, ?);")) {
