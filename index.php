@@ -23,7 +23,10 @@ echo '<div id="twitter">'; // gets closed in footer.html
   // c. via api.twitter / xml to get RTs
   $tweets = getTweetsXml($user, $numTweets);
   
-  //debugArray($tweets);
+  if(isset($tweets->error)) {
+    echo $tweets->error;
+    exit;
+  }
   
   echo '<form method="POST" id="returnHTML" action="index.php">
   <ul>
