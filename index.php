@@ -17,9 +17,11 @@ echo '<div id="twitter">'; // gets closed in footer.html
   
   // get tweets
   // a. via search.twitter (rate limit !)
-  $tweets = getTweets($user, $numTweets);
+  // $tweets = getTweets($user, $numTweets);
   // b. via yal
   //$tweets = getTweetsViaYql($user, $numTweets);
+  // c. via api.twitter / xml to get RTs
+  $tweets = getTweetsXml($user, $numTweets);
   
   //debugArray($tweets);
   
@@ -29,9 +31,11 @@ echo '<div id="twitter">'; // gets closed in footer.html
     <li><input id="selectAll" type="checkbox" onclick="toggleChecked(this.checked)"> Select all <div id="counter">0 tweets in Tweet Digest&nbsp;|&nbsp;<a href="index.php">Change @user &amp; # of tweets</a></div></li>';
   
   // a. via search.twitter (rate limit !)
-  echo '<div id="tweets">'. outputTweetsForSelect($tweets) .'</div>';
+  // echo '<div id="tweets">'. outputTweetsForSelect($tweets) .'</div>';
   // b. via yal
   //echo '<div id="tweets">'. outputTweetsForSelectYql($tweets) .'</div>';
+  // c. via xml
+  echo '<div id="tweets">'. outputTweetsForSelectXml($tweets) .'</div>';
   
   echo '</ul>
   </form>';    

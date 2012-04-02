@@ -5,7 +5,7 @@ function getTweets($user, $numTweets) {
   if(!is_numeric($numTweets)) $numTweets = 20;
   if($numTweets > 200) $numTweets = 200;  
   
-  $url = "http://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets;
+  $url = "http://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets . "&include_rts=1";
   
   // make request
   $ch = curl_init();
@@ -25,23 +25,38 @@ function getTweets($user, $numTweets) {
     die();
   }
   
-  return $tweets;
-  
-  // when > 200 is ok to support use the following: 
-  /*$tweets = array(); $tweetsNew = array();
-  
-  for($i = 0; $i < (round($numTweets/100, 0, PHP_ROUND_HALF_DOWN) + 1); $i++) {
-    $url = "https://twitter.com/statuses/user_timeline/".$user.".json?count=100&page=" . $i;
-
-    if(!$info = @file_get_contents($url, true)) {
-     die("Not able to get tweets now (Twitter only allows 150 requests per hour)\n");
-    }
-    $tweetsNew = json_decode($info);   
-    $tweets = array_merge($tweets, $tweetsNew); 
-  }
-
-  return array_slice($tweets, 0, $numTweets);*/
+  return $tweets;  
 }
+
+// RFE: https://twitter.com/statuses/user_timeline/bbelderbos.rss?count=100&page=1 gives you the RTs as well!
+
+function getTweetsXml($user, $numTweets) {
+  // code from https://dev.twitter.com/discussions/1188
+  $feed = "http://api.twitter.com/1/statuses/user_timeline.xml?screen_name=$user&count=$numTweets&include_rts=true";
+  $feedData = get_data($feed);
+  $xml = new SimpleXmlElement($feedData);
+  return $xml;
+}
+
+function outputTweetsForSelectXml($tweets) {
+  $output = ''; 
+  foreach($tweets->status as $item) {
+    
+    // todo data-in-reply-to
+    
+    $output .= '<li>
+      
+        <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$item->id.'" />
+        <img src="'.$item->user->profile_image_url.'">
+        <div class="tweetToCopy">
+          <blockquote class="twitter-tweet"><p>'.makeLinks($item->text).'</p>&mdash; '.$item->user->name.' (@'.$item->user->screen_name.') <a href="https://twitter.com/'.$item->user->screen_name.'/status/'.$item->id.'" data-datetime="'.convertDate($item->created_at).'">'.convertDateReadable($item->created_at).'</a></blockquote>
+        </div>
+      
+    </li>';
+  }
+  return $output;
+}
+
 
 function outputTweetsForSelect($tweets) {
   $output = ''; 
@@ -115,7 +130,7 @@ function insertStat($user, $numTweets){
       $stmt->close();
   }
 
-  $mysqli->close;
+  $mysqli->close();
 }
 
 
