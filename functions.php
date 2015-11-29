@@ -1,84 +1,30 @@
 <?php
 function getTweets($user, $numTweets) {
-  // if wrong value, default = 20 
-  // up until 200 tweets limit for now to make just one request to twitter
-  if(!is_numeric($numTweets)) $numTweets = 20;
-  if($numTweets > 200) $numTweets = 200;  
-  
-  $url = "http://twitter.com/statuses/user_timeline/".$user.".json?count=".$numTweets . "&include_rts=1";
-  
-  // make request
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $url); 
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-  $output = curl_exec($ch); 
-
-  // convert response
-  $tweets = json_decode($output);
-
-  // handle error; error output
-  $info = curl_getinfo($ch);
-  curl_close($ch);  
-  if($info['http_code'] !== 200) {
-    echo "http code returned by Twitter: ".$info['http_code']."<br><br>Dump request: <br>";
-    var_dump($output);
-    die();
-  }
-  
-  return $tweets;  
+  require_once('TwitterAPIExchange.php');
+  require_once('config.php');
+  $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+  $getfield = "?screen_name=$user&count=$numTweets";
+  $requestMethod = 'GET';
+  $twitter = new TwitterAPIExchange($settings);
+  $response = $twitter->setGetfield($getfield)
+      ->buildOauth($url, $requestMethod)
+      ->performRequest();
+  return json_decode($response);
 }
 
-// RFE: https://twitter.com/statuses/user_timeline/bbelderbos.rss?count=100&page=1 gives you the RTs as well!
-
-function getTweetsXml($user, $numTweets) {
-  // code from https://dev.twitter.com/discussions/1188
-  $feed = "http://api.twitter.com/1/statuses/user_timeline.xml?screen_name=$user&count=$numTweets&include_rts=true";
-  $feedData = get_data($feed);
-  $xml = new SimpleXmlElement($feedData);
-  return $xml;
-}
-
-function outputTweetsForSelectXml($tweets) {
-  $output = ''; 
-  foreach($tweets->status as $item) {
-    
-    // todo data-in-reply-to
-    
-    $output .= '<li>
-      
-        <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$item->id.'" />
-        <img src="'.$item->user->profile_image_url.'">
-        <div class="tweetToCopy">
-          <blockquote class="twitter-tweet"><p>'.makeLinks($item->text).'</p>&mdash; '.$item->user->name.' (@'.$item->user->screen_name.') <a href="https://twitter.com/'.$item->user->screen_name.'/status/'.$item->id.'" data-datetime="'.convertDate($item->created_at).'">'.convertDateReadable($item->created_at).'</a></blockquote>
-        </div>
-      
-    </li>';
-  }
-  return $output;
-}
-
-
-function outputTweetsForSelect($tweets) {
+function outputTweets($tweets) {
   $output = ''; 
   foreach($tweets as $item) {
-    
-    // todo data-in-reply-to
-    
     $output .= '<li>
-      
-        <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$item->id_str.'" />
-        <img src="'.$item->user->profile_image_url.'">
-        <div class="tweetToCopy">
-          <blockquote class="twitter-tweet"><p>'.makeLinks($item->text).'</p>&mdash; '.$item->user->name.' (@'.$item->user->screen_name.') <a href="https://twitter.com/'.$item->user->screen_name.'/status/'.$item->id_str.'" data-datetime="'.convertDate($item->created_at).'">'.convertDateReadable($item->created_at).'</a></blockquote>
-        </div>
-      
+      <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$item->id.'" />
+      <img src="'.$item->user->profile_image_url.'">
+      <div class="tweetToCopy">
+        <blockquote class="twitter-tweet"><p>'.makeLinks($item->text).'</p>&mdash; '.$item->user->name.' (@'.$item->user->screen_name.') <a href="https://twitter.com/'.$item->user->screen_name.'/status/'.$item->id.'" data-datetime="'.convertDate($item->created_at).'">'.convertDateReadable($item->created_at).'</a></blockquote>
+      </div>
     </li>';
   }
   return $output;
 }
-
-
-
 
 function getTweetHtml($tweetId) {
   $url = "https://api.twitter.com/1/statuses/oembed.json?id=$tweetId&omit_script=true&lang=en";
@@ -89,7 +35,6 @@ function getTweetHtml($tweetId) {
   $tweetContent = json_decode($info);
   return $tweetContent->html;
 }
-
 
 function makeLinks($var){
   /*
@@ -119,35 +64,6 @@ function convertDateReadable($date) {
   return $months[$fields[1]]." $fields[2], $fields[5]";
 }
 
-
-function insertStat($user, $numTweets){  
-  include '../../includes/conn_tweetDigest.php';
-  $tstamp = time();
-  
-  if ($stmt = $mysqli->prepare("INSERT INTO stats (user, numTweets, insertDate) VALUES (?, ?, ?);")) {
-      $stmt->bind_param("ssi", $user, $numTweets, $tstamp);
-      $stmt->execute();
-      $stmt->close();
-  }
-
-  $mysqli->close();
-}
-
-
-
-// yql - does this have a rate limit ?!!
-
-function getTweetsViaYql($user, $numTweets) {
-  $query = "select created_at,from_user_id_str,from_user,from_user_name,text,id_str,profile_image_url,text,in_reply_to_status_id_str from twitter.search($numTweets) where q='from:$user'";
-  $url = "http://query.yahooapis.com/v1/public/yql?q=";
-  $url .= rawurlencode($query);
-  $url .= "&format=json&env=store://datatables.org/alltableswithkeys";
-
-  $json = get_data($url);
-  $info = json_decode($json, true) ;
-  return $info;
-}
-
 // from: http://davidwalsh.name/download-urls-content-php-curl
 function get_data($url) {
   $ch = curl_init();
@@ -159,30 +75,4 @@ function get_data($url) {
   curl_close($ch);
   return $data;
 }
-
-
-function outputTweetsForSelectYql($tweets) {
-  $output = ''; 
-  foreach($tweets['query']['results']['results'] as $tweet) {
-    
-    // todo data-in-reply-to
-    
-    $output .= '<li>
-      
-        <input type="checkbox" class="tweet" name="selectedTweets[]" value="'.$tweet['id_str'].'" />
-        <img src="'.$tweet['profile_image_url'].'">
-        <div class="tweetToCopy">
-          <blockquote class="twitter-tweet"';
-    
-    if(isset($tweet['in_reply_to_status_id_str'])) $output .= 'data-in-reply-to="'.$tweet['in_reply_to_status_id_str'].'"';
-    
-    $output .= '><p>'.makeLinks($tweet['text']).'</p>&mdash; '.$tweet['from_user_name'].' (@'.$tweet['from_user'].') <a href="https://twitter.com/'.$tweet['from_user'].'/status/'.$tweet['id_str'].'" data-datetime="'.convertDate($tweet['created_at']).'">'.convertDateReadable($tweet['created_at']).'</a></blockquote>
-        </div>
-      
-    </li>';
-  }
-  return $output;
-}
-
-
 ?>
